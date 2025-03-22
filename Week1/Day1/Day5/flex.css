@@ -1,0 +1,21 @@
+.item{
+    background-color: red;
+    width: 100px;
+    height: 60px;
+    border: 1px;
+    padding: 1opx;
+    margin:10px;
+}
+.flex-container{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+    max-width: 500px;
+    margin: 0 auto;
+    gap: 10px;
+}
+#item2{
+    background-color: green;
+    width: 300px;
+}
