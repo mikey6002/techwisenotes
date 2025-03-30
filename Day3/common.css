@@ -1,0 +1,14 @@
+section{
+    padding: 20px;
+    margin: 20px;
+    border: 1px solid #000;
+    border-radius: 5px;
+    background-color: blueviolet;
+}
+.badass-section{
+    background-color: royalblue; 
+    width: 40%;
+    float: right;
+    height: auto;
+    margin-right: 50px;
+}
