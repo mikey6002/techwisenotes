@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TodoList</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        #todo-list {
+            list-style-type: none;
+            padding: 0;
+        }
+        #todo-list li {
+            padding: 10px;
+            border: 1px solid #ddd;
+            margin-bottom: 5px;
+            border-radius: 4px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        #todo-list li.completed {
+            text-decoration: line-through;
+            color: gray;
+        }
+        .remove-btn {
+            background-color: red;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-3xl font-bold text-center">Todo List</h1>
+        <form id="todo-form" class="mt-4">
+            <input type="text" id="todo-input" placeholder="Add a new todo" class="border p-2 w-full">
+            <button type="button" id="add-todo" class="bg-blue-500 text-white p-2 mt-2">Add Todo</button>
+            <button type="button" id="clear-all" class="bg-red-500 text-white p-2 mt-2">Clear All</button>
+        </form>
+        <ul id="todo-list" class="mt-4"></ul>
+        <p id="todo-count" class="mt-2 text-gray-600">Total Todos: 0</p>
+    </div>
+    <script src="todo.js"></script>
+</body>
+</html>
