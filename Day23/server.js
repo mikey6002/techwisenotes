@@ -1,6 +1,8 @@
-require("dotenv").config();
-const express = require("express");
-const mongoose = require("mongoose");
+import dotenv from "dotenv";
+import express from "express";
+import mongoose from "mongoose";
+
+dotenv.config();
 
 const MONGO_URI = process.env.MONGO_URI;
 
@@ -15,26 +17,26 @@ app.use((req, res, next) => {
 });
 
 // ---------- 2. DB Connection ----------
-(async () => {
-    try {
-        await mongoose.connect(MONGO_URI, {
-            bufferTimeoutMS: 1000,
-            connectTimeoutMS: 1000,
-        });
-        console.log("✅ successfully connected to MongoDB");
-    } catch (error) {
-        console.error("❌ error connecting to MongoDB", error);
-        process.exit(1);
-    } finally {
-        await mongoose.connection.close();
-        console.log("✅ successfully disconnected from MongoDB");
-        process.exit(0);
-    }
-})();
+
+try {
+    await mongoose.connect(MONGO_URI, {
+        bufferTimeoutMS: 1000,
+        connectTimeoutMS: 1000,
+    });
+    console.log("✅ successfully connected to MongoDB");
+} catch (error) {
+    console.error("❌ error connecting to MongoDB", error);
+    process.exit(1);
+}
 
 // ---------- 3. Routes ----------
-const userRouter = require("./routes/userRouter");
+import userRouter from "./routes/userRoutes.js";
 app.use("/api/users", userRouter);
+
+// ping route, health check
+app.get("/ping", (req, res) => {
+    res.send("pong!!!");
+});
 
 // ---------- 4. Start Server ----------
 app.listen(PORT, () => {
