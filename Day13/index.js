@@ -1,56 +1,43 @@
-const promiseExample = new Promise((resolve, reject) => {
-    console.log("Promise started");
-    setTimeout(() => {
-        console.log("Promise resolved");
-        resolve("Success");
-    },1000)
-})
 
-console.log(promiseExample);
+
 const promiseExample2 = new Promise((resolve, reject) => {
-    console.log("promise is being created");
+    console.log("Promise is being created");
     setTimeout(() => {
-        const Success = true; // This simulate that something happens successfully or not
-        if (Success) {
-            resolve("Success");
+        const success = false; // this is to simulate that something happened successfully or not
+        if (success) {
+            resolve("Promise is resolved");
         } else {
-            reject("Failure");
+            reject("Promise is rejected");
         }
-    }, 1000)
+    }, 1000);
 })
+
 console.log(promiseExample2);
-promiseExample2.then((result) => {
-    console.log("result ->" ,result);   // result of the promise
-    console.log(promiseExample2) // this is just to show that the promise is resolved
-}).catch((error) => {
-    console.log("error ->", error); // this is just to show that the promise is rejected
+
+
+
+const promiseObj = promiseExample2.then((result) => {
+    console.log("result ->", result); // this is the result of the promise
+    console.log(promiseExample2) // this is just to show that the promise object is resolved
 })
+console.log(promiseObj);
 
-const promiseObject = promiseExample2.then((result) => {
-    console.log("result ->" ,result);   // result of the promise
-    console.log(promiseExample2) // this is just to show that the promise is resolved
-})
-console.log(promiseObject); // this is just to show that the promise is resolved
 
-const finnhunAPIKey = " "
-const baseURL = "https://api.finnhub.io/api/v1/quote?symbol=AAPL&token=" + finnhunAPIKey
 
-function fetchStockPrice(symbol){
-    fetch('${baseURL}${symbol}')
+const baseUrl = "https://finnhub.io/api/v1"
+const quoteEndpoint = "/quote"
+
+
+function fetchStockPrice(symbol) {
+    fetch(`${baseUrl}${quoteEndpoint}?symbol=${symbol}&token=${finnhubApiKey}`)
     .then((response) => {
-        if (!response.ok) {
-            throw new Error("Network response was not ok");
-        }
+        console.log("response ->", response);
+        // console.log("response.json() ->", response.json());
         return response.json();
+    }).then((data) => {
+        console.log("data ->", data);
+
     })
-    .then((data) => {
-        console.log("Current Price: ", data.c);
-        console.log("High Price: ", data.h);
-        console.log("Low Price: ", data.l);
-        console.log("Open Price: ", data.o);
-        console.log("Previous Close Price: ", data.pc);
-    })
-    .catch((error) => {
-        console.error("Error fetching stock price: ", error);
-    });
 }
+
+fetchStockPrice("AAPL")
