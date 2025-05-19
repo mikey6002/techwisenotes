@@ -1,34 +1,102 @@
-*{
-    font-family: "Lato",sans-serif;
-}
-h1{
-    font-family: "Railway",sans-serif;
+* {
+    margin: 0;
+    padding: 0;
+
+    font-family: 'Lato', sans-serif;
 }
 
-/*
-this is a short hand
-h1,h2,h3,h4,h5,h6{
-    font-family: "Railway",sans-serif;
+main {
+    padding: 10px;
 }
-*/
-#specificity-section{
+
+/* h1 {
+    font-family: 'Raleway', sans-serif;
+}
+
+h2 {
+    font-family: 'Raleway', sans-serif;
+} */
+
+h1, h2 {
+    font-family: 'Raleway', sans-serif;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #2c3e50;
+}
+
+
+section {
     background-color: red;
     padding: 10px;
-    margin:10px;
-    border-radius: 10px
-}
-section.a2{
-    background-color: aquamarine;
-    border: none;
+    margin: 10px;
+    border-radius: 5px;
 }
 
-#intro_to_specificity{
-    background-color: orange;
+
+section.a1 {
+    background-color: rgb(228, 177, 177);
 }
-#intro_to_specficity{
-    background-color: azure;
+
+section {
+    background-color: rgb(177, 177, 228);
 }
-main section.a2#intro-to-specificity2{
-    background-color: red;
-    border: none;
+
+/* Specificity */
+
+/* 
+Selectors:
+
+1. ID
+2. Class
+3. Type (HTML tag)
+
+(ID, Class, Type)
+
+(1, 14, 0) != (2, 4, 0)
+*/
+
+/* (0, 0, 1) */
+section {
+    background-color: rgb(177, 228, 208);
 }
+
+/* (0, 1, 1) */
+section.a2 {
+    background-color: rgb(228, 228, 177);
+}
+
+/* (1, 0, 0) */
+#intro-to-specificity {
+    background-color: rgb(228, 177, 177);
+}
+
+/* (1, 0, 1) */
+section#intro-to-specificity {
+    background-color: rgb(177, 213, 228);
+}
+/* (1, 0, 1) */
+section#intro-to-specificity2 {
+    background-color: rgb(177, 213, 228);
+}
+
+/* (1,1,1) */
+section.a2#intro-to-specificity2 {
+    background-color: rgb(164, 230, 188) !important;
+    /* background color is (1, 0 ,1, 1, 1) */
+    border: none !important;
+}
+
+/* (1,1,2) */
+main section.a2#intro-to-specificity2 {
+    background-color: rgb(230, 164, 164) !important;
+    /* background color is (1, 0 ,1, 1, 2) */
+    border: none !important;
+}
+
+section.a2#intro-to-specificity2 {
+    background-color: rgb(230, 226, 164) !important;
+    /* (1, 0, 1, 1, 1) */
+}
+
+

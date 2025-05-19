@@ -1,0 +1,71 @@
+:root {
+    --primary-color: #a7c3e0;
+    --secondary-color: #3498db;
+    --accent-color: #59e73c;
+    --background-color: #2a293f;
+    --text-color: #c9c9c9;
+    --border-radius: 3px;
+    --card-background-color: #46436d;
+}
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Lato', sans-serif;
+}
+
+body {
+    background-color: var(--background-color);
+}
+
+main {
+    padding: 10px;
+}
+
+.card {
+    margin: 10px;
+    padding: 10px;
+    /* border: 1px solid var(--primary-color); */
+    border-radius: var(--border-radius);
+    background-color: var(--card-background-color);
+}
+
+.card:hover {
+    /* background-color: var(--primary-color); */
+    cursor: pointer;
+    transform: scale(1.02);
+    box-shadow: 0 0 10px 0 rgba(170, 205, 233, 0.5);
+    transition: transform 0.3s ease-in-out,
+                box-shadow 0.2s ease-in-out;
+}
+
+/* .card:first-child {
+    color: var(--accent-color);
+} */
+
+
+.card p:last-child {
+    color: var(--accent-color);
+}
+
+.card h2:nth-child(1){
+    color: red !important;
+    background-color: red !important;
+}
+h1, h2 {
+    font-family: 'Raleway', sans-serif;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    /* color: #2c3e50; */
+    color: var(--primary-color);
+}
+
+p {
+    font-family: 'Lato', sans-serif;
+    font-weight: 400;
+    /* color: #333; */
+    color: var(--text-color);
+}
