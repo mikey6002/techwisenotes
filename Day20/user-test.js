@@ -1,20 +1,24 @@
 require("dotenv").config();
-const express = require("express");
 const mongoose = require("mongoose");
-
+const User = require("./models/user");
 const MONGO_URI = process.env.MONGO_URI;
 
-const app = express();
-const PORT = process.env.PORT || 3000;
 
-// ---------- 1. Middleware ----------
-app.use(express.json());
-app.use((req, res, next) => {
-    console.log(`${req.method} ${req.url}`);
-    next();
-});
-
-// ---------- 2. DB Connection ----------
+const createUser = async () => {
+    try {
+        const u = await User.create({
+            username: "testuser",
+            email: "testuser@test.com",
+            password: "password",
+            balance: 100,
+            
+        });
+        console.log(u);
+    } catch (error) {
+        console.error("❌ error creating user", error);
+    }
+}
+// ---------- 1. DB Connection ----------
 (async () => {
     try {
         await mongoose.connect(MONGO_URI, {
@@ -22,6 +26,8 @@ app.use((req, res, next) => {
             connectTimeoutMS: 1000,
         });
         console.log("✅ successfully connected to MongoDB");
+        await createUser();
+
     } catch (error) {
         console.error("❌ error connecting to MongoDB", error);
         process.exit(1);
@@ -31,12 +37,3 @@ app.use((req, res, next) => {
         process.exit(0);
     }
 })();
-
-// ---------- 3. Routes ----------
-// const userRouter = require("./routes/userRouter");
-// app.use("/api/users", userRouter);
-
-// ---------- 4. Start Server ----------
-app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
-});
