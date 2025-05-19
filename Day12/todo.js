@@ -1,71 +1,109 @@
-const todoinput = document.querySelector("#todo-input");
-const addtodo = document.querySelector("#add-todo");
-const clearall = document.querySelector("#clear-all");
-const todolist = document.querySelector("#todo-list");
-const todocount = document.querySelector("#todo-count");
+const todoInput = document.querySelector("#todo-input");
+const addTodo = document.querySelector("#add-todo");
 
-// Add event listener to the "Add Todo" button
-addtodo.addEventListener("click", function () {
-  const todoText = todoinput.value.trim();
-  if (todoText === "") {
-    alert("Please enter a todo!");
-    return;
-  }
 
-  const todoItem = document.createElement("li");
-  todoItem.textContent = todoText;
+const todos = JSON.parse(localStorage.getItem("todos")) || []; // if the todos are not in the local storage, then we will use an empty array
 
-  // Add a click event to toggle "completed" class
-  todoItem.addEventListener("click", function () {
-    todoItem.classList.toggle("completed");
-  });
+todoInput.addEventListener("keypress", (e) => {
+    // console.log(e);
+    if (e.key === "Enter") {
+        console.log("Enter key pressed");
+        addTodo.click(); // trigger the click event on the addTodo button
+    }
+})
 
-  todolist.appendChild(todoItem);
-  todoinput.value = "";
-
-  // Update the todo count
-  const count = todolist.children.length;
-  todocount.textContent = `Total Todos: ${count}`;
-});
-
-// Add event listener to the "Clear All" button
-clearall.addEventListener("click", function () {
-  todolist.innerHTML = "";
-  todocount.textContent = "Total Todos: 0";
-});
-
-// Add event listener for pressing "Enter" in the input field
-todoinput.addEventListener("keypress", function (e) {
-  if (e.key === "Enter") {
+addTodo.addEventListener("click", (e) => {
+    // e = event object
     e.preventDefault();
-    addtodo.click(); // Trigger the "Add Todo" button click
-  }
-});
+    const todoText = todoInput.value;
+    console.log(todoText);
+    if (todoText.trim() !== "") {
+        newTodo(todoText);
+        renderTodos(); // re-render the todos
+        todoInput.value = "";
+    }
+})
+
+const todoList = document.querySelector("#todo-list"); // this is the ul element
+
+function newTodo(todoText) {
+    todos.push({
+        text: todoText,
+        completed: false
+    })
+    saveTodos();
+}
+
+function saveTodos() {
+    localStorage.setItem("todos", JSON.stringify(todos)) // save the todos to the local storage
+}
 
 function renderTodos() {
-  const todos = JSON.parse(localStorage.getItem("todos")) || [];
-  todolist.innerHTML = "";
-  todos.forEach((todo) => {
-    const todoItem = document.createElement("li");
-    todoItem.textContent = todo;
-    todoItem.addEventListener("click", function () {
-      todoItem.classList.toggle("completed");
-    });
-    todolist.appendChild(todoItem);
-  });
-  todocount.textContent = `Total Todos: ${todos.length}`;
-
-
-  
-}
-// Save todos to local storage
-function saveTodos() {
-  const todos = [];
-  for (let i = 0; i < todolist.children.length; i++) {
-    todos.push(todolist.children[i].textContent);
-  }
-  localStorage.setItem("todos", JSON.stringify(todos));
-
-
+    todoList.innerHTML = "";
+    todos.forEach(todo => {
+        renderTodo(todo);
+    })
 }
 
+function renderTodo(todo) {
+    // todo is an object with text and completed properties
+    const li = document.createElement("li");
+    li.classList.add("p-2", "border-b", "flex", "justify-start", "items-center", "gap-2");
+
+    const checkbox = document.createElement("input");
+    checkbox.type = "checkbox";
+    checkbox.checked = todo.completed;
+
+    checkbox.addEventListener("change", (e) => {
+        console.log("checkbox changed: ", e);
+        todo.completed = e.target.checked; // basically we are getting the state of the checkbox
+        saveTodos();
+        renderTodos();
+    })
+    
+    li.appendChild(checkbox);
+    
+    const span = document.createElement("span");
+    if (todo.completed) {
+        span.classList.add("line-through", "text-gray-300");
+    }
+    span.innerText = todo.text;
+    li.appendChild(span);
+
+    todoList.appendChild(li);
+}
+
+
+
+// render the full todo list
+renderTodos();
+
+
+
+// --- old code ---
+function localStorageExample() {
+    localStorage.setItem("todos", '[{"text": "buy groceries", "completed": false}, {"text": "buy groceries2", "completed": false}]');
+
+    const todosLocal = localStorage.getItem("todos");
+    console.log(todosLocal);
+    // console.log(todosLocal[0]);
+
+    const parsedTodos = JSON.parse(todosLocal);
+    // JavaScript Object Notation
+    console.log(parsedTodos);
+
+    console.log(JSON.stringify(todos));
+}
+
+// localStorageExample();
+// render a single todo, -- this is not used anymore
+function renderTodoOld(todoText) {
+    const li = document.createElement("li");
+
+    li.classList.add("p-2", "border-b", "flex", "justify-between", "items-center");
+
+    // li.textContent = todoText;
+    li.innerText = todoText;
+
+    todoList.appendChild(li);
+}

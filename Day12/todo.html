@@ -3,54 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TodoList</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-        }
-        .container {
-            max-width: 600px;
-            margin: 0 auto;
-        }
-        #todo-list {
-            list-style-type: none;
-            padding: 0;
-        }
-        #todo-list li {
-            padding: 10px;
-            border: 1px solid #ddd;
-            margin-bottom: 5px;
-            border-radius: 4px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        #todo-list li.completed {
-            text-decoration: line-through;
-            color: gray;
-        }
-        .remove-btn {
-            background-color: red;
-            color: white;
-            border: none;
-            padding: 5px 10px;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-    </style>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <title>Todo List</title>
 </head>
 <body>
-    <div class="container">
-        <h1 class="text-3xl font-bold text-center">Todo List</h1>
-        <form id="todo-form" class="mt-4">
-            <input type="text" id="todo-input" placeholder="Add a new todo" class="border p-2 w-full">
-            <button type="button" id="add-todo" class="bg-blue-500 text-white p-2 mt-2">Add Todo</button>
-            <button type="button" id="clear-all" class="bg-red-500 text-white p-2 mt-2">Clear All</button>
-        </form>
-        <ul id="todo-list" class="mt-4"></ul>
-        <p id="todo-count" class="mt-2 text-gray-600">Total Todos: 0</p>
+    <div class="container mx-auto p-4">
+        <h1 class="text-2xl font-bold">Todo List</h1>
+        <ul id="todo-list" class="list-disc pl-5">
+            <!-- TODOs are added here from the todo.js file -->
+        </ul>
+        <section id="todo-submit" class="mt-4">
+            <input type="text" id="todo-input" class="border border-gray-300 rounded-md p-2" placeholder="Add a new todo">
+            <button id="add-todo" class="bg-blue-500 text-white px-4 py-2 rounded-md">Add</button>
+        </section>
     </div>
+
     <script src="todo.js"></script>
 </body>
 </html>
